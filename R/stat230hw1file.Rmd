@@ -1,0 +1,24 @@
+---
+title: "stat230hw1file"
+author: "EricBourgain"
+date: "1/14/2022"
+output: html_document
+---
+
+Multiply two square matrices (A,B) and a vector (x) in two different ways and benchmark the results. 
+
+The first way (1) is (AB)x and the second (2) is A(Bx).
+
+The github is https://github.com/echang992000/stats230/
+
+```{r matmul}
+install.packages("C:/Users/Eric/Downloads/stats230local",repos=NULL,type="source")
+m1=matrix(runif(100),nrow=10)
+m2=matrix(runif(100),nrow=10)
+m3=matrix(runif(10),nrow=10)
+library(stats230local)
+library(bench)
+lb=bench::mark(matmul(m1,m2,m3,1),matmul(m1,m2,m3,2))
+plot(lb)
+```
+
