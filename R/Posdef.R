@@ -1,5 +1,8 @@
-# Generating a random positive-definite matrix with user-specified positive eigenvalues
-# If eigenvalues are not specified, they are generated from a uniform distribution
+#' Generating a random positive-definite matrix with user-specified positive eigenvalues
+#' @param n First input, dimension of matrix
+#' @return Random pos def matrix 
+#' @export
+#' @examples Posdef(4)
 Posdef <- function (n, ev = runif(n, 0, 10)) 
 {
   Z <- matrix(ncol=n, rnorm(n^2))

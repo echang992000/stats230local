@@ -1,0 +1,31 @@
+---
+title: "stats230hw2file"
+author: "EricBourgain"
+date: "2/4/2022"
+output: html_document
+---
+
+Problem 7
+
+```{r mvn}
+#install.packages("C:/Users/Eric/Downloads/stats230local",repos=NULL,type="source")
+#library(bench)
+devtools::install_github('https://github.com/echang992000/stats230local',force=TRUE)
+library(stats230local)
+n=4
+N=100
+mu=rnorm(n)
+sigma=Posdef(n)
+x=mvn(mu,sigma,N)
+mu
+rowMeans(x)
+sigma
+cov(t(x))
+
+
+
+
+
+data=read.csv(file="C:\\Users\\echan\\Downloads\\homework2_regression.csv")
+
+```
