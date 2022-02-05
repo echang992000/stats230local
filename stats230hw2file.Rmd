@@ -7,9 +7,7 @@ output: html_document
 
 Problem 7
 
-```{r mvn}
-#install.packages("C:/Users/Eric/Downloads/stats230local",repos=NULL,type="source")
-#library(bench)
+```{r}
 devtools::install_github('https://github.com/echang992000/stats230local',force=TRUE)
 library(stats230local)
 n=4
@@ -21,11 +19,16 @@ mu
 rowMeans(x)
 sigma
 cov(t(x))
+```
 
 
+Problem 8
+When a matrix is ill-conditioned, then QR is generally faster but less stable than SVD. Here our max and min singular values are 17 and 10 respectively, for a condition number of 1.7. This is not a large condition number, so the matrix is well-conditioned and we don't expect to see a large difference between the two methods, as the bench package also indicates.
+```{r}
+data=read.csv(file="C:\\Users\\Eric\\Downloads\\homework2_regression.csv")
+plot(bench::mark(ols_qr(data)))
+plot(bench::mark(ols_svd(data)))
 
 
-
-data=read.csv(file="C:\\Users\\echan\\Downloads\\homework2_regression.csv")
 
 ```
