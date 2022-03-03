@@ -10,6 +10,7 @@ bw=function(p0,e0,v0,tol){
 for (k in 1:1000){
   a=matrix(0,2,101)
   a[,1]=v0*e0[,y[1]]
+  g2=1000
   for (t in 1:100){
     for (i in 1:2){
       for (j in 1:2){
@@ -60,9 +61,12 @@ for (k in 1:1000){
   for (l in 1:6){
     e0[2,l]=sum((y==l)*gam[i,])/sum(gam[i,])
   }
-  #if (abs(log(g2)-log(g1)<tol)){
-  #  break
-  #}
+  g1=sum(log(a*b))
+  if (abs(g2-g1)<tol)){
+    break
+  }else{
+  g2=g1
+  }
 }
   out=list(p0,e0,v0)
   return(out)

@@ -4,13 +4,12 @@ author: "EricBourgain"
 date: "2/22/2022"
 output: html_document
 ---
-I recently rebuilt my computer and have had issues uploading to my github account so I've included the functions in this folder.
+When I tried knitting, rstudio wanted to update some packages that caused a roxygen incompatability, so my functions weren't showing up in github or my package (and thus only ran locally). Eventually I reinstalled everything with a previous version of roxygen and now it works, sorry for the slight delay.
 
 Problem 1 
 
 
 ```{r}
-#install.packages("../",repos=NULL,type="source")
 devtools::install_github('https://github.com/echang992000/stats230local',force=TRUE)
 library(stats230local)
 library(tidyverse)
@@ -35,6 +34,7 @@ out1=logreg(x,y,1)
 theta1=out1[[1]]
 error1=out1[[2]]
 lik1=out1[[3]]
+print("Width/2 of Confidence Interval for Gradient method")
 print(error1) # width/2 of the confidence interval
 
 # newton method
@@ -42,8 +42,13 @@ out2=logreg(x,y,2)
 theta2=out2[[1]]
 error2=out2[[2]]
 lik2=out2[[3]]
+print("Width/2 of Confidence Interval for Newton method")
 print(error2)
 
+```
+
+
+```{r}
 # likelihood comparison
 plot(lik1[1:40])
 title(main="likelihood comparison for logistic regression",xlab="iterations",ylab="likelihood")
@@ -57,7 +62,8 @@ b3=b1 %>% add_row(b2)
 plot(b3)
 
 ```
-Clear difference in performance, with the gradient descent much faster (Hessian calculation and inversion is time consuming). However, newton's method is quadratic and converges much more quickly
+
+Clear difference in performance, with the gradient descent much faster (Hessian calculation and inversion is time consuming). However, newton's method is quadratic and converges much more quickly so fewer iterations but more time consuming. Since we're comparing over iterations, we chose to take an iteration based approach over tolerance (otherwise Newton converges in 4-9 iterations, depending on tol). 
 
 
 
@@ -78,9 +84,20 @@ lines(p[2,],col=2)
 lines(p[3,],col=3)
 legend("topright",legend=c("pA","pB","pO"),col=c(1,2,3),lty=1,pch=20)
 
+n=c(6,4,55,35)
+pa=0.01
+pb=0.01
+po=0.98
+p=em(n,pa,pb,po)
 
+plot(p[1,],type="l",xlim=c(1,11),ylim=c(0,1))
+title(main="EM Alg for Alle Frequency Probabilities in ABO blood type")
+lines(p[2,],col=2)
+lines(p[3,],col=3)
+legend("topright",legend=c("pA","pB","pO"),col=c(1,2,3),lty=1,pch=20)
 ```
 
+Here we implemented the EM algorithm and tried a couple very different initial probabilities.  
 
 
 Problem 3
@@ -140,18 +157,25 @@ for (t in 1:101){
 }
 
 plot(x,ylim=c(0,2))
-title(main="Fair dice: Marginal vs True",xlab="iterations",ylab="probability/state")
+title(main="Marginal vs True for Loaded Dice",xlab="iterations",ylab="probability/state")
+points(m[2,],col=2)
+legend("topleft",legend=c("true","marginal for loaded"),col=c(1,2),lty=1,pch=20)
+
+plot(x,ylim=c(0,2))
+title(main="Marginal vs True for Fair Dice",xlab="iterations",ylab="probability/state")
 points(m[1,],col=2)
-points(m[2,],col=3)
-legend("topleft",legend=c("true","marginal for fair","marginal for loaded"),col=c(1,2,3),lty=1,pch=20)
+legend("topleft",legend=c("true","marginal for fair"),col=c(1,2),lty=1,pch=20)
 
 
 p0=matrix(c(0.5,.5,.5,.5),ncol=2)
 e0=matrix(rep(c(1/6,1/6),6),ncol=6)
 v0=matrix(c(1/2,1/2),ncol=1)
-out3=bw(p0,e0,v0,0.01)
-print(p0)
-print(e0)
-print(v0)
+out=bw(p0,e0,v0,0.01)
+print("Transition Probabilities")
+print(out[[1]])
+print("Emission Probabilities")
+print(out[[2]])
+print("Initial Distribution")
+print(out[[3]])
 
 ```
