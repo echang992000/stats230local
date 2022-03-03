@@ -35,7 +35,7 @@ for (k in 1:1000){
       gam[i,t]=a[i,t]*b[i,t]/(t(a[,t])%*%b[,t])
     }
   }
-  g1=sum(gam)
+  #g1=sum(gam)
   
   g=array(0,dim=c(2,2,101))
   for (t in 2:101){
@@ -60,9 +60,9 @@ for (k in 1:1000){
   for (l in 1:6){
     e0[2,l]=sum((y==l)*gam[i,])/sum(gam[i,])
   }
-  if (abs(log(g2)-log(g1)<tol)){
-    break
-  }
+  #if (abs(log(g2)-log(g1)<tol)){
+  #  break
+  #}
 }
   out=list(p0,e0,v0)
   return(out)
