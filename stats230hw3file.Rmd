@@ -10,7 +10,8 @@ Problem 1
 
 
 ```{r}
-devtools::install_github('https://github.com/echang992000/stats230local',force=TRUE)
+install.packages("../",repos=NULL,type="source")
+#devtools::install_github('https://github.com/echang992000/stats230local',force=TRUE)
 library(stats230local)
 library(tidyverse)
 library(bench)
