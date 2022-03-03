@@ -3,13 +3,9 @@
 #' @param e0 emissions matrix, top row is true, rest is from uniform dist
 #' @param v0 starting point, uniform dist
 #' @param tol cutoff for convergence
-#' @return  p,e, and v after
+#' @return out list comprised of p0,e0, and v0 after converging
 #' @export
 
-p0=matrix(c(0.5,.5,.5,.5),ncol=2)
-e0=matrix(rep(c(1/6,1/6),6),ncol=6)
-v0=matrix(c(1/2,1/2),ncol=1)
-g2=10
 bw=function(p0,e0,v0,tol){
 for (k in 1:1000){
   a=matrix(0,2,101)
@@ -68,5 +64,6 @@ for (k in 1:1000){
     break
   }
 }
-  return(list(p0,e0,v0))
+  out=list(p0,e0,v0)
+  return(out)
 }
